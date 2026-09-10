@@ -1,24 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/screens/counter_home_page.dart';
+import 'package:flutter_learning/screens/settings_screen.dart';
 
 void main() {
-  runApp(const CounterApp());
+  runApp(const DarkModeApp());
 }
 
-/// Gốc app: Stateless — theme/home không đổi theo lần bấm.
-class CounterApp extends StatelessWidget {
-  const CounterApp({super.key});
+/// Ngày 9: state theme nằm TRÊN MaterialApp.
+///
+/// setState ở đây → build lại → MaterialApp nhận themeMode mới → cả cây đổi theme.
+/// Nếu _isDark chỉ nằm ở Settings, Switch đổi state con nhưng MaterialApp không rebuild.
+class DarkModeApp extends StatefulWidget {
+  const DarkModeApp({super.key});
+
+  @override
+  State<DarkModeApp> createState() => _DarkModeAppState();
+}
+
+class _DarkModeAppState extends State<DarkModeApp> {
+  bool _isDark = false;
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('[DarkModeApp] initState  isDark=$_isDark');
+  }
+
+  @override
+  void dispose() {
+    debugPrint('[DarkModeApp] dispose');
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Cấm setState ở đây — build chỉ ĐỌC _isDark rồi vẽ.
+    debugPrint('[DarkModeApp] build  isDark=$_isDark');
+
     return MaterialApp(
-      title: 'Counter Ngày 8',
+      title: 'Ngày 9 — Dark mode',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
       ),
-      home: const CounterHomePage(),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
+      home: SettingsScreen(
+        isDark: _isDark,
+        onChanged: (value) {
+          setState(() => _isDark = value);
+        },
+      ),
     );
   }
 }
