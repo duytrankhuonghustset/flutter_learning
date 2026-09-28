@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screens/input_lab_screen.dart';
 import 'package:flutter_learning/screens/lifecycle_lab_screen.dart';
+import 'package:flutter_learning/screens/login_page.dart';
 
 /// Stateless: không giữ isDark. Nhận value + callback từ DarkModeApp (hoist).
 class SettingsScreen extends StatelessWidget {
@@ -53,6 +55,32 @@ class SettingsScreen extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute<void>(
                   builder: (context) => const LifecycleLabScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.edit_outlined),
+            title: const Text('Input Lab'),
+            subtitle: const Text('TextField + controller, Form một ô — Ngày 10'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const InputLabScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.login),
+            title: const Text('Đăng nhập'),
+            subtitle: const Text('Form 2 ô, tài khoản cứng — Ngày 10'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const LoginPage(),
                 ),
               );
             },
