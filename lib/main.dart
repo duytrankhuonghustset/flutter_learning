@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/screens/settings_screen.dart';
+import 'package:flutter_learning/screens/todo_tick_screen.dart';
 
 void main() {
   runApp(const DarkModeApp());
@@ -54,12 +54,7 @@ class _DarkModeAppState extends State<DarkModeApp> {
         useMaterial3: true,
       ),
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      home: SettingsScreen(
-        isDark: _isDark,
-        onChanged: (value) {
-          setState(() => _isDark = value);
-        },
-      ),
+      home: const TodoTickScreen(),
     );
   }
 }
