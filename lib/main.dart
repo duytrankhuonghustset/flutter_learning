@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/screens/todo_tick_screen.dart';
+import 'package:flutter_learning/screens/product_list_page.dart';
 
 void main() {
   runApp(const DarkModeApp());
@@ -17,7 +17,7 @@ class DarkModeApp extends StatefulWidget {
 }
 
 class _DarkModeAppState extends State<DarkModeApp> {
-  bool _isDark = false;
+  final bool _isDark = false;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _DarkModeAppState extends State<DarkModeApp> {
     debugPrint('[DarkModeApp] build  isDark=$_isDark');
 
     return MaterialApp(
-      title: 'Ngày 9 — Dark mode',
+      title: 'Ngày 12 — Navigation',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -54,7 +54,7 @@ class _DarkModeAppState extends State<DarkModeApp> {
         useMaterial3: true,
       ),
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      home: const TodoTickScreen(),
+      home: const ProductListPage(),
     );
   }
 }
