@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screens/async_lab_screen.dart';
 import 'package:flutter_learning/screens/product_json_lab_screen.dart';
 
 /// Ngày 13 Lab 1: tab Profile chỉ là placeholder.
@@ -34,6 +35,18 @@ class ProfileTab extends StatelessWidget {
               );
             },
             child: const Text('Ngày 15 — Model JSON'),
+          ),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => const AsyncLabScreen(),
+                ),
+              );
+            },
+            child: const Text('Ngày 16 — Async'),
           ),
         ],
       ),
