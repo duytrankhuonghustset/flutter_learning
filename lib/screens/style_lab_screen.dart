@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Ngày 24 Lab 2: chuyển từ lib/ vào lib/screens/.
 /// Phòng thí nghiệm Style — luyện TextStyle, BoxDecoration, shadow, gradient.
 class StyleLabScreen extends StatelessWidget {
   const StyleLabScreen({super.key});

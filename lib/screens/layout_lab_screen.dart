@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Ngày 24 Lab 2: chuyển từ lib/ vào lib/screens/.
 /// Phòng thí nghiệm Layout — luyện Column, Row, SizedBox, Padding, Stack.
 class LayoutLabScreen extends StatefulWidget {
   const LayoutLabScreen({super.key});

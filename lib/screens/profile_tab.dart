@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/screens/asset_lab_screen.dart';
+import 'package:flutter_learning/screens/folder_map_screen.dart';
 import 'package:flutter_learning/screens/async_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_state_screen.dart';
@@ -141,6 +142,18 @@ class ProfileTab extends StatelessWidget {
                       );
                     },
                     child: const Text('Ngày 23 — Provider'),
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const FolderMapScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ngày 24 — Thư mục'),
                   ),
                 ],
               ),
