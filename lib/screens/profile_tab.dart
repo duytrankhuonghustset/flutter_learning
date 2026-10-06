@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/screens/async_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_state_screen.dart';
+import 'package:flutter_learning/screens/prefs_lab_screen.dart';
 import 'package:flutter_learning/screens/product_json_lab_screen.dart';
 
 /// Ngày 13 Lab 1: tab Profile chỉ là placeholder.
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
+  const ProfileTab({
+    super.key,
+    this.isDark = false,
+    this.onDarkModeChanged,
+  });
+
+  /// Ngày 19: tùy chọn để call site cũ vẫn dựng được ProfileTab().
+  final bool isDark;
+  final ValueChanged<bool>? onDarkModeChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +82,21 @@ class ProfileTab extends StatelessWidget {
               );
             },
             child: const Text('Ngày 18 — Trạng thái'),
+          ),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => PrefsLabScreen(
+                    isDark: isDark,
+                    onDarkModeChanged: onDarkModeChanged ?? (_) {},
+                  ),
+                ),
+              );
+            },
+            child: const Text('Ngày 19 — Lưu trữ'),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/screens/main_shell_page.dart';
+import 'package:flutter_learning/services/prefs_store.dart';
 
 void main() {
   runApp(const DarkModeApp());
@@ -17,12 +18,29 @@ class DarkModeApp extends StatefulWidget {
 }
 
 class _DarkModeAppState extends State<DarkModeApp> {
-  final bool _isDark = false;
+  // Lab 2: false đến khi prefs đọc xong — có thể nháy sáng một nhịp.
+  bool _isDark = false;
+
+  /// User bật Switch trước khi lần đọc đầu trả về thì bỏ kết quả cũ.
+  bool _userChangedTheme = false;
 
   @override
   void initState() {
     super.initState();
     debugPrint('[DarkModeApp] initState  isDark=$_isDark');
+    _loadSavedTheme();
+  }
+
+  /// Lab 2: getInstance bất đồng bộ, xong mới setState themeMode.
+  Future<void> _loadSavedTheme() async {
+    final saved = await getIsDark();
+    if (!mounted || _userChangedTheme) return;
+    setState(() => _isDark = saved);
+  }
+
+  void _onDarkModeChanged(bool value) {
+    _userChangedTheme = true;
+    setState(() => _isDark = value);
   }
 
   @override
@@ -54,7 +72,10 @@ class _DarkModeAppState extends State<DarkModeApp> {
         useMaterial3: true,
       ),
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      home: const MainShellPage(),
+      home: MainShellPage(
+        isDark: _isDark,
+        onDarkModeChanged: _onDarkModeChanged,
+      ),
     );
   }
 }

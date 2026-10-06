@@ -9,7 +9,15 @@ import 'package:flutter_learning/screens/search_tab.dart';
 /// Lab 2 — Drawer dùng cùng [_index]; pop chỉ đóng menu.
 /// IndexedStack giữ State của tab Search khi đổi tab.
 class MainShellPage extends StatefulWidget {
-  const MainShellPage({super.key});
+  const MainShellPage({
+    super.key,
+    this.isDark = false,
+    this.onDarkModeChanged,
+  });
+
+  /// Ngày 19: theme vẫn do DarkModeApp giữ. Shell chỉ chuyển tiếp.
+  final bool isDark;
+  final ValueChanged<bool>? onDarkModeChanged;
 
   @override
   State<MainShellPage> createState() => _MainShellPageState();
@@ -89,10 +97,13 @@ class _MainShellPageState extends State<MainShellPage> {
       ),
       body: IndexedStack(
         index: _index,
-        children: const [
-          HomeTab(),
-          SearchTab(),
-          ProfileTab(),
+        children: [
+          const HomeTab(),
+          const SearchTab(),
+          ProfileTab(
+            isDark: widget.isDark,
+            onDarkModeChanged: widget.onDarkModeChanged,
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
