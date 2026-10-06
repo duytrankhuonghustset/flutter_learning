@@ -49,14 +49,17 @@ class _MainShellPageState extends State<MainShellPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.indigo),
+            DrawerHeader(
+              // Ngày 26: header menu theo theme, không khóa Colors.indigo.
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
                   'Menu',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),

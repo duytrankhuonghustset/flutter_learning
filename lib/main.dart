@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/screens/main_shell_page.dart';
 import 'package:flutter_learning/services/prefs_store.dart';
+import 'package:flutter_learning/theme/app_theme.dart';
 
 void main() {
   runApp(const DarkModeApp());
@@ -57,20 +58,8 @@ class _DarkModeAppState extends State<DarkModeApp> {
     return MaterialApp(
       title: 'Ngày 13 — 3 tab',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
       home: MainShellPage(
         isDark: _isDark,
