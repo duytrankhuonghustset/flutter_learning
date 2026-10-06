@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screens/asset_lab_screen.dart';
 import 'package:flutter_learning/screens/async_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_state_screen.dart';
@@ -97,6 +98,18 @@ class ProfileTab extends StatelessWidget {
               );
             },
             child: const Text('Ngày 19 — Lưu trữ'),
+          ),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => const AssetLabScreen(),
+                ),
+              );
+            },
+            child: const Text('Ngày 20 — Asset'),
           ),
         ],
       ),
