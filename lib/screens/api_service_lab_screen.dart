@@ -2,39 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/models/post.dart';
 import 'package:flutter_learning/services/post_api.dart';
 
-/// Ngày 17: Lab 1 đếm bài sau GET. Lab 2 hiện title.
-///
-/// Cùng một lần fetch. ListView dùng [_posts] đã có, không tạo Future trong build.
-class PostsLabScreen extends StatefulWidget {
-  const PostsLabScreen({super.key});
+/// Ngày 25 Lab 2: màn chỉ gọi PostApiService, không gọi HTTP trực tiếp.
+class ApiServiceLabScreen extends StatefulWidget {
+  const ApiServiceLabScreen({super.key});
 
   @override
-  State<PostsLabScreen> createState() => _PostsLabScreenState();
+  State<ApiServiceLabScreen> createState() => _ApiServiceLabScreenState();
 }
 
-class _PostsLabScreenState extends State<PostsLabScreen> {
-  /// Ngày 25: State gọi service, không gọi http.get.
+class _ApiServiceLabScreenState extends State<ApiServiceLabScreen> {
   final PostApiService _api = PostApiService();
 
-  bool _loading = false;
-  String _status = 'Chưa tải.';
+  bool _loading = true;
   String? _error;
   List<Post> _posts = const [];
 
-  Future<void> _load() async {
-    setState(() {
-      _loading = true;
-      _error = null;
-      _status = 'Đang tải...';
-    });
+  @override
+  void initState() {
+    super.initState();
+    // Đã loading. Không setState trước await lúc mở màn.
+    _fetch();
+  }
 
+  /// Lab 2: lỗi hiện một dòng. Sau await phải còn mounted.
+  Future<void> _fetch() async {
     try {
       final posts = await _api.fetchPosts();
       if (!mounted) return;
       setState(() {
         _loading = false;
+        _error = null;
         _posts = posts;
-        _status = 'Đã tải: ${posts.length} bài';
       });
     } catch (error) {
       if (!mounted) return;
@@ -42,16 +40,23 @@ class _PostsLabScreenState extends State<PostsLabScreen> {
         _loading = false;
         _posts = const [];
         _error = '$error';
-        _status = 'Không tải được';
       });
     }
+  }
+
+  void _reload() {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+    _fetch();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ngày 17 — API'),
+        title: const Text('Ngày 25 — ApiService'),
         centerTitle: true,
       ),
       body: Column(
@@ -63,38 +68,33 @@ class _PostsLabScreenState extends State<PostsLabScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lab 1 — đếm bài',
+                  'Lab 2 — list chỉ gọi service',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                Text(_status),
+                const Text('Màn này không gọi http.get.'),
                 if (_error != null) ...[
                   const SizedBox(height: 8),
-                  Text(_error!, style: const TextStyle(color: Colors.red)),
+                  Text(
+                    _error!,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                 ],
                 const SizedBox(height: 12),
                 FilledButton(
-                  onPressed: _loading ? null : _load,
+                  onPressed: _loading ? null : _reload,
                   child: _loading
                       ? const SizedBox(
                           width: 18,
                           height: 18,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
-                      : const Text('Tải bài viết'),
+                      : const Text('Tải lại'),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 16),
-          const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
-            child: Text(
-              'Lab 2 — title',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: _posts.length,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screens/api_service_lab_screen.dart';
 import 'package:flutter_learning/screens/asset_lab_screen.dart';
 import 'package:flutter_learning/screens/folder_map_screen.dart';
 import 'package:flutter_learning/screens/async_lab_screen.dart';
@@ -154,6 +155,18 @@ class ProfileTab extends StatelessWidget {
                       );
                     },
                     child: const Text('Ngày 24 — Thư mục'),
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const ApiServiceLabScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ngày 25 — ApiService'),
                   ),
                 ],
               ),

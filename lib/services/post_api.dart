@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'package:flutter_learning/models/post.dart';
 import 'package:http/http.dart' as http;
 
-const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+/// Ngày 25 Lab 1: HTTP và parse nằm trong class. Widget không gọi http.get.
+class PostApiService {
+  static const _postsUrl = 'https://jsonplaceholder.typicode.com/posts';
 
-/// GET danh sách bài. Widget chỉ gọi hàm này, không gọi http.get trực tiếp.
-Future<List<Post>> fetchPosts() async {
-  final response = await http.get(Uri.parse(postsUrl));
-  if (response.statusCode != 200) {
-    throw Exception('HTTP ${response.statusCode}');
+  /// GET danh sách bài. Status khác 200 thì throw — màn bắt và hiện chữ.
+  Future<List<Post>> fetchPosts() async {
+    final response = await http.get(Uri.parse(_postsUrl));
+    if (response.statusCode != 200) {
+      throw Exception('HTTP ${response.statusCode}');
+    }
+    final raw = jsonDecode(response.body) as List<dynamic>;
+    return Post.listFromJson(raw);
   }
-  final raw = jsonDecode(response.body) as List<dynamic>;
-  return Post.listFromJson(raw);
 }

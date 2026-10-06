@@ -7,7 +7,7 @@ enum PostLoadStatus { loading, error, empty, data }
 
 /// Ngày 18: bốn trạng thái khi tải posts. Lab 2 là nút Thử lại.
 ///
-/// Không sửa màn Ngày 17. Fetch vẫn là [fetchPosts].
+/// Không sửa hành vi màn Ngày 17. Fetch qua [PostApiService], không http.get.
 class PostsStateScreen extends StatefulWidget {
   const PostsStateScreen({super.key});
 
@@ -16,6 +16,9 @@ class PostsStateScreen extends StatefulWidget {
 }
 
 class _PostsStateScreenState extends State<PostsStateScreen> {
+  /// Ngày 25: State gọi service, không gọi http.get.
+  final PostApiService _api = PostApiService();
+
   PostLoadStatus _status = PostLoadStatus.loading;
   List<Post> _posts = const [];
   String? _error;
@@ -49,7 +52,7 @@ class _PostsStateScreenState extends State<PostsStateScreen> {
         await Future<void>.delayed(const Duration(milliseconds: 400));
         throw Exception('Giả lập lỗi: không tải được bài viết');
       } else {
-        posts = await fetchPosts();
+        posts = await _api.fetchPosts();
       }
       if (!mounted || loadId != _loadId) return;
 
