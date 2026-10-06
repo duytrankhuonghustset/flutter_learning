@@ -5,6 +5,7 @@ import 'package:flutter_learning/screens/posts_lab_screen.dart';
 import 'package:flutter_learning/screens/posts_state_screen.dart';
 import 'package:flutter_learning/screens/prefs_lab_screen.dart';
 import 'package:flutter_learning/screens/product_json_lab_screen.dart';
+import 'package:flutter_learning/screens/provider_lab_screen.dart';
 import 'package:flutter_learning/screens/setstate_limit_screen.dart';
 
 /// Ngày 13 Lab 1: tab Profile chỉ là placeholder.
@@ -128,6 +129,18 @@ class ProfileTab extends StatelessWidget {
                       );
                     },
                     child: const Text('Ngày 22 — setState'),
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const ProviderLabScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ngày 23 — Provider'),
                   ),
                 ],
               ),
