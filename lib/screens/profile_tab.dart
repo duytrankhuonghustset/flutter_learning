@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screens/product_json_lab_screen.dart';
 
 /// Ngày 13 Lab 1: tab Profile chỉ là placeholder.
 class ProfileTab extends StatelessWidget {
@@ -22,6 +23,18 @@ class ProfileTab extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const Text('Cùng Scaffold với Home và Search.'),
+          const SizedBox(height: 24),
+          FilledButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => const ProductJsonLabScreen(),
+                ),
+              );
+            },
+            child: const Text('Ngày 15 — Model JSON'),
+          ),
         ],
       ),
     );
