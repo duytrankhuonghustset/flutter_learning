@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/screens/product_list_page.dart';
+import 'package:flutter_learning/screens/main_shell_page.dart';
 
 void main() {
   runApp(const DarkModeApp());
@@ -37,7 +37,7 @@ class _DarkModeAppState extends State<DarkModeApp> {
     debugPrint('[DarkModeApp] build  isDark=$_isDark');
 
     return MaterialApp(
-      title: 'Ngày 12 — Navigation',
+      title: 'Ngày 13 — 3 tab',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -54,7 +54,7 @@ class _DarkModeAppState extends State<DarkModeApp> {
         useMaterial3: true,
       ),
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      home: const ProductListPage(),
+      home: const MainShellPage(),
     );
   }
 }
