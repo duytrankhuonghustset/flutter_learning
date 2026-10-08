@@ -9,6 +9,7 @@ import 'package:flutter_learning/screens/prefs_lab_screen.dart';
 import 'package:flutter_learning/screens/product_json_lab_screen.dart';
 import 'package:flutter_learning/screens/provider_lab_screen.dart';
 import 'package:flutter_learning/screens/setstate_limit_screen.dart';
+import 'package:flutter_learning/note_app/note.dart';
 import 'package:flutter_learning/screens/theme_lab_screen.dart';
 
 /// Ngày 13 Lab 1: tab Profile chỉ là placeholder.
@@ -180,6 +181,18 @@ class ProfileTab extends StatelessWidget {
                       );
                     },
                     child: const Text('Ngày 26 — Theme'),
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const NotesScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ghi chú — CRUD'),
                   ),
                 ],
               ),
