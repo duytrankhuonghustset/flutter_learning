@@ -5,7 +5,8 @@ import 'package:flutter_learning/screens/search_tab.dart';
 
 /// Ngày 13: một shell, một index.
 ///
-/// Lab 1 — BottomNavigationBar đổi body, không Navigator.push khi bấm tab.
+/// Lab 1 — thanh tab đổi body, không Navigator.push khi bấm tab.
+/// Mỗi ô là InkWell nên ripple dừng trong tab vừa bấm.
 /// Lab 2 — Drawer dùng cùng [_index]; pop chỉ đóng menu.
 /// IndexedStack giữ State của tab Search khi đổi tab.
 class MainShellPage extends StatefulWidget {
@@ -109,15 +110,72 @@ class _MainShellPageState extends State<MainShellPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: _ShellTabBar(
         currentIndex: _index,
-        type: BottomNavigationBarType.fixed,
         onTap: _selectTab,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+      ),
+    );
+  }
+}
+
+/// Ba ô bằng nhau. InkWell cắt splash theo khung ô, nên ripple không lan cả thanh.
+class _ShellTabBar extends StatelessWidget {
+  const _ShellTabBar({
+    required this.currentIndex,
+    required this.onTap,
+  });
+
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
+  static const _items = <(IconData, String)>[
+    (Icons.home, 'Home'),
+    (Icons.search, 'Search'),
+    (Icons.person, 'Profile'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return Material(
+      elevation: 8,
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: kBottomNavigationBarHeight,
+          child: Row(
+            children: [
+              for (final (index, item) in _items.indexed)
+                Expanded(
+                  child: InkWell(
+                    onTap: () => onTap(index),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          item.$1,
+                          color: index == currentIndex
+                              ? colors.primary
+                              : colors.onSurfaceVariant,
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          item.$2,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: index == currentIndex
+                                ? colors.primary
+                                : colors.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
